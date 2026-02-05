@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <title>Bat-Signal</title>
 
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
@@ -12,39 +15,41 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: Arial, sans-serif;
+      font-family: 'Playfair Display', serif;
       text-align: center;
+      overflow: hidden;
     }
 
     .box {
-      background: rgba(255, 215, 0, 0.95);
-      padding: 50px;
-      border-radius: 25px;
-      width: 440px;
-      box-shadow: 0 0 45px rgba(255, 215, 0, 0.9);
+      background: rgba(255, 215, 0, 0.96);
+      padding: 60px;
+      border-radius: 30px;
+      width: 520px;
+      box-shadow: 0 0 50px rgba(255, 215, 0, 0.9);
+      z-index: 2;
     }
 
     h2 {
-      font-size: 36px;
-      margin-bottom: 15px;
+      font-size: 44px;
+      margin-bottom: 20px;
     }
 
     p {
-      font-size: 20px;
-      line-height: 1.5;
+      font-size: 24px;
+      line-height: 1.6;
     }
 
     h3 {
-      font-size: 28px;
-      margin-top: 15px;
+      font-size: 32px;
+      margin-top: 20px;
     }
 
     button {
-      padding: 14px 34px;
-      margin: 16px;
+      padding: 18px 40px;
+      margin: 18px;
       border: none;
-      border-radius: 16px;
-      font-size: 22px;
+      border-radius: 20px;
+      font-size: 24px;
       cursor: pointer;
     }
 
@@ -58,12 +63,26 @@
       color: white;
       position: absolute;
     }
+
+    /* Hearts */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 28px;
+      animation: floatUp 6s linear infinite;
+      color: #ff3366;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-110vh); opacity: 0; }
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- Background Music -->
+  <!-- Music -->
   <audio id="bgm" loop>
     <source src="batman.mp3" type="audio/mpeg">
   </audio>
@@ -73,18 +92,18 @@
     <h2>🦇 Bat-Signal Activated</h2>
     <p>
       When the Bat-Signal lights up,<br>
-      Gotham needs its hero.
+      Gotham doesn’t ask twice.
     </p>
     <p><b>
       Tonight, it’s not Gotham.<br>
-      It’s me.
+      It’s me calling you.
     </b></p>
     <button onclick="nextScreen()">Continue</button>
   </div>
 
   <!-- Screen 2 -->
   <div class="box" id="screen2" style="display:none;">
-    <h2 style="font-size:42px;">Will you be my Valentine? 💛</h2>
+    <h2 style="font-size:48px;">Will you be my Valentine? 💛</h2>
     <button class="yes" onclick="yes()">YES</button>
     <button class="no" id="noBtn" onmouseover="noAction()">NO</button>
   </div>
@@ -104,9 +123,14 @@
 
       if (noCount === 1) {
         btn.innerText = "Nice try 😏";
-      } else if (noCount === 2) {
+      } 
+      else if (noCount === 2) {
         btn.innerText = "Not an option 🦇";
-      } else {
+      } 
+      else if (noCount === 3) {
+        btn.innerText = "Nice try Batman 😌";
+      } 
+      else {
         yes();
         return;
       }
@@ -115,17 +139,35 @@
       btn.style.left = Math.random() * 80 + "vw";
     }
 
+    function createHearts() {
+      for (let i = 0; i < 40; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 6000);
+      }
+    }
+
     function yes() {
       document.body.innerHTML = `
         <div class="box">
           <h2>🖤 Mission Accepted</h2>
-          <p>The hero answered the Bat-Signal.</p>
-          <h3>Happy Valentine’s Day 💛</h3>
-          <p style="font-size:18px; margin-top:22px;">
-            — From Abhiramy, your Catwoman 🐈‍⬛🖤
+          <p>
+            You didn’t just answer the Bat-Signal.<br>
+            You chose to stay.
+          </p>
+          <h3>Welcome to the mission,<br>Mayyanad Batman 🦇🖤</h3>
+          <p style="font-size:20px; margin-top:30px;">
+            — From Abhiramy, your Catwoman 🐈‍⬛
           </p>
         </div>
       `;
+      createHearts();
+      setInterval(createHearts, 1500);
     }
   </script>
 
