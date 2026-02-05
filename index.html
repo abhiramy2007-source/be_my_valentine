@@ -17,23 +17,34 @@
     }
 
     .box {
-      background: rgba(255, 215, 0, 0.92);
-      padding: 40px;
-      border-radius: 20px;
-      width: 320px;
-      box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+      background: rgba(255, 215, 0, 0.95);
+      padding: 50px;
+      border-radius: 25px;
+      width: 440px;
+      box-shadow: 0 0 45px rgba(255, 215, 0, 0.9);
     }
 
     h2 {
-      margin-bottom: 10px;
+      font-size: 36px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    h3 {
+      font-size: 28px;
+      margin-top: 15px;
     }
 
     button {
-      padding: 10px 22px;
-      margin: 12px;
+      padding: 14px 34px;
+      margin: 16px;
       border: none;
-      border-radius: 12px;
-      font-size: 16px;
+      border-radius: 16px;
+      font-size: 22px;
       cursor: pointer;
     }
 
@@ -60,29 +71,46 @@
   <!-- Screen 1 -->
   <div class="box" id="screen1">
     <h2>🦇 Bat-Signal Activated</h2>
-    <p>When the Bat-Signal lights up,<br>Gotham needs its hero.</p>
-    <p><b>Tonight, it’s not Gotham.<br>It’s me.</b></p>
+    <p>
+      When the Bat-Signal lights up,<br>
+      Gotham needs its hero.
+    </p>
+    <p><b>
+      Tonight, it’s not Gotham.<br>
+      It’s me.
+    </b></p>
     <button onclick="nextScreen()">Continue</button>
   </div>
 
   <!-- Screen 2 -->
   <div class="box" id="screen2" style="display:none;">
-    <h2>Will you be my Valentine? 💛</h2>
+    <h2 style="font-size:42px;">Will you be my Valentine? 💛</h2>
     <button class="yes" onclick="yes()">YES</button>
-    <button class="no" id="noBtn" onmouseover="moveNo()">NO</button>
+    <button class="no" id="noBtn" onmouseover="noAction()">NO</button>
   </div>
 
   <script>
+    let noCount = 0;
+
     function nextScreen() {
       document.getElementById("screen1").style.display = "none";
       document.getElementById("screen2").style.display = "block";
-
-      // Play music after first click
       document.getElementById("bgm").play();
     }
 
-    function moveNo() {
+    function noAction() {
       const btn = document.getElementById("noBtn");
+      noCount++;
+
+      if (noCount === 1) {
+        btn.innerText = "Nice try 😏";
+      } else if (noCount === 2) {
+        btn.innerText = "Not an option 🦇";
+      } else {
+        yes();
+        return;
+      }
+
       btn.style.top = Math.random() * 80 + "vh";
       btn.style.left = Math.random() * 80 + "vw";
     }
@@ -93,6 +121,9 @@
           <h2>🖤 Mission Accepted</h2>
           <p>The hero answered the Bat-Signal.</p>
           <h3>Happy Valentine’s Day 💛</h3>
+          <p style="font-size:18px; margin-top:22px;">
+            — From Abhiramy, your Catwoman 🐈‍⬛🖤
+          </p>
         </div>
       `;
     }
