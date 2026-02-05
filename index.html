@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bat-Signal</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: radial-gradient(circle, #ffd700 20%, #000 60%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    .box {
+      background: rgba(255, 215, 0, 0.92);
+      padding: 40px;
+      border-radius: 20px;
+      width: 320px;
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 22px;
+      margin: 12px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .yes {
+      background: black;
+      color: #ffd700;
+    }
+
+    .no {
+      background: gray;
+      color: white;
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background Music -->
+  <audio id="bgm" loop>
+    <source src="batman.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Screen 1 -->
+  <div class="box" id="screen1">
+    <h2>🦇 Bat-Signal Activated</h2>
+    <p>When the Bat-Signal lights up,<br>Gotham needs its hero.</p>
+    <p><b>Tonight, it’s not Gotham.<br>It’s me.</b></p>
+    <button onclick="nextScreen()">Continue</button>
+  </div>
+
+  <!-- Screen 2 -->
+  <div class="box" id="screen2" style="display:none;">
+    <h2>Will you be my Valentine? 💛</h2>
+    <button class="yes" onclick="yes()">YES</button>
+    <button class="no" id="noBtn" onmouseover="moveNo()">NO</button>
+  </div>
+
+  <script>
+    function nextScreen() {
+      document.getElementById("screen1").style.display = "none";
+      document.getElementById("screen2").style.display = "block";
+
+      // Play music after first click
+      document.getElementById("bgm").play();
+    }
+
+    function moveNo() {
+      const btn = document.getElementById("noBtn");
+      btn.style.top = Math.random() * 80 + "vh";
+      btn.style.left = Math.random() * 80 + "vw";
+    }
+
+    function yes() {
+      document.body.innerHTML = `
+        <div class="box">
+          <h2>🖤 Mission Accepted</h2>
+          <p>The hero answered the Bat-Signal.</p>
+          <h3>Happy Valentine’s Day 💛</h3>
+        </div>
+      `;
+    }
+  </script>
+
+</body>
+</html>
